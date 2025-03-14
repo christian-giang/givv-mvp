@@ -10,6 +10,16 @@ export async function POST(request) {
     // Grabbin the users input
     const params = await request.json();
 
+    // Concatenate predefined text with params.prompt to create full prompt
+    const whiteListPrompt = `Here are examples of things the user likes to receive: ${params.whiteListprompt}
+                        Output a list of 10 good gift ideas as bullet points. Begin the list with "Good ideas:"
+                        `;
+    const blackListPrompt = `Here are examples of things the user doesn't like to receive: ${params.blackListPrompt}
+                        Output a list of 10 bad gift ideas as bullet points. Begin the list with "Bad ideas:"
+                        `;
+                        
+
+
     // Passing it to GPT
     const response = await openai.chat.completions.create({
 
@@ -17,11 +27,15 @@ export async function POST(request) {
         messages: [
             {
                 role: "system",
-                content: "You are a very grumpy assistant.",
+                content: "You are a friendly assistant that helps others to find perfect gifts.",
             },
             {
                 role: "user",
-                content:     params.prompt, // String that user passes to the system
+                content: whiteListPrompt, // String that user passes to the system
+            },
+            {
+                role: "user",
+                content: blackListPrompt, // String that user passes to the system
             },
         ],
         temperature: 0,

@@ -2,6 +2,11 @@
 
 }
 
+.logo{
+  width: 100px;
+  height: 50px;
+}
+
 .card{
   max-width: 30rem;
   margin: 0 auto;
