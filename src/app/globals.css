@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+html,body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  padding: 1 rem;
+  color: rgb(0, 0, 0);
+  background: linear-gradient(180deg, hsl(250, 78%, 18%) 0.42%, #be0c0c 100%);
+}
