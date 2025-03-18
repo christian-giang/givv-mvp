@@ -11,7 +11,15 @@ export default function EbayTest() {
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    const response = await fetch(`https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q=${searchQuery}&limit=3`);
+    if (!searchQuery.trim()) {
+      console.error('Search query is empty');
+      return;
+    }
+    const response = await fetch(`http://localhost:3001/api/buy/browse/v1/item_summary/search?q=${searchQuery}&limit=3`);
+    if (!response.ok) {
+      console.error('Error:', response.statusText);
+      return;
+    }
     const data = await response.json();
     setResults(data.itemSummaries || []);
   };
@@ -34,6 +42,7 @@ export default function EbayTest() {
             <div key={item.itemId}>
               <h2>{item.title}</h2>
               <p>{item.price.value} {item.price.currency}</p>
+              {item.image && <img src={item.image.imageUrl} alt={item.title} />}
             </div>
           ))}
         </div>
